@@ -99,6 +99,7 @@ using (var scope = app.Services.CreateScope())
 app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapGet("/", () => Results.Redirect("/swagger"));
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 app.MapControllers();
 
