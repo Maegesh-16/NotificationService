@@ -1,0 +1,14 @@
+services:
+  notification-service:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: notification-service
+    ports:
+      - "7003:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ConnectionStrings__NotificationDb: ${NOTIFICATION_CONNECTION_STRING:-Server=host.docker.internal,1433;Database=notification_db;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;Encrypt=False}
+      Jwt__Issuer: ${JWT_ISSUER:-Insurance.Identity}
+      Jwt__Audience: ${JWT_AUDIENCE:-Insurance.Services}
+      Jwt__Key: ${JWT_KEY:-DevelopmentOnlyChangeThisJwtSigningKey123!}
