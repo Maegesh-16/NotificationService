@@ -2,6 +2,7 @@ services:
   - type: web
     name: insurance-notification-service
     runtime: docker
+    dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /health
     envVars:
