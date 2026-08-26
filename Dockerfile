@@ -14,5 +14,7 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
+
 EXPOSE 8080
 ENTRYPOINT ["sh", "-c", "dotnet NotificationService.API.dll --urls http://0.0.0.0:${PORT:-8080}"]
