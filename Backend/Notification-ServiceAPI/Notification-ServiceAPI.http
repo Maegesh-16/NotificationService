@@ -1,0 +1,56 @@
+@Notification_ServiceAPI_HostAddress = http://localhost:5080
+
+### Health
+GET {{Notification_ServiceAPI_HostAddress}}/health
+Accept: application/json
+
+### Get Notification History
+GET {{Notification_ServiceAPI_HostAddress}}/api/notifications/history
+Accept: application/json
+
+### Send Email Notification
+POST {{Notification_ServiceAPI_HostAddress}}/api/notifications/email
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+	"recipientEmail": "customer@example.com",
+	"subject": "Policy Renewal Reminder",
+	"body": "Your policy renewal is due in 7 days."
+}
+
+### Send Email Notification (Simulated Failure)
+POST {{Notification_ServiceAPI_HostAddress}}/api/notifications/email
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+	"recipientEmail": "fail-user@example.com",
+	"subject": "Failure simulation",
+	"body": "This should return Failed status for retry flow testing."
+}
+
+### Send SMS Notification
+POST {{Notification_ServiceAPI_HostAddress}}/api/notifications/sms
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+	"recipientPhone": "+919999999999",
+	"message": "Your claim has been approved."
+}
+
+### Send Push Notification
+POST {{Notification_ServiceAPI_HostAddress}}/api/notifications/push
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+	"recipientDeviceToken": "device-token-123",
+	"title": "Claim Update",
+	"message": "Your survey visit is scheduled for tomorrow."
+}
+
+### Retry Failed Notification
+POST {{Notification_ServiceAPI_HostAddress}}/api/notifications/{{notificationId}}/retry
+Authorization: Bearer {{jwtToken}}
