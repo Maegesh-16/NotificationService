@@ -36,6 +36,7 @@ public static class AuthenticationExtensions
                     ValidateLifetime = jwtSettings.ValidateLifetime,
                     ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
                     IssuerSigningKey = signingKey,
+                    ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
                     ClockSkew = TimeSpan.FromMinutes(jwtSettings.ClockSkewMinutes)
                 };
             });
