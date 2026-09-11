@@ -7,7 +7,6 @@ using Notification_ServiceAPI.Middleware;
 using Notification_ServiceAPI.Repositories.Implementations;
 using Notification_ServiceAPI.Repositories.Interfaces;
 using Notification_ServiceAPI.Services.Dispatch;
-using Notification_ServiceAPI.Services.Email;
 using Notification_ServiceAPI.Services.Implementations;
 using Notification_ServiceAPI.Services.Interfaces;
 
@@ -28,8 +27,6 @@ builder.Services.AddDbContext<NotificationDbContext>(options =>
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<INotificationDispatcher, NotificationDispatcher>();
-builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(SmtpSettings.SectionName));
-builder.Services.AddScoped<IWelcomeEmailSender, SmtpWelcomeEmailSender>();
 
 builder.Services.AddNotificationServiceAuthentication(builder.Configuration);
 
