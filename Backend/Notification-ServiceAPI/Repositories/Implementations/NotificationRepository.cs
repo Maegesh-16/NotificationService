@@ -53,7 +53,8 @@ public class NotificationRepository(NotificationDbContext dbContext) : INotifica
 
         if (!string.IsNullOrWhiteSpace(channel))
         {
-            query = query.Where(x => x.Channel == channel);
+            var normalizedChannel = channel.Trim().ToLower();
+            query = query.Where(x => x.Channel.ToLower() == normalizedChannel);
         }
 
         return await query

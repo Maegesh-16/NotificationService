@@ -47,18 +47,27 @@ public static class AuthenticationExtensions
                 policy.RequireAuthenticatedUser().RequireRole(
                     NotificationServiceRoles.Customer,
                     NotificationServiceRoles.Agent,
+                    NotificationServiceRoles.ClaimsAdjuster,
                     NotificationServiceRoles.ClaimsOfficer,
                     NotificationServiceRoles.CustomerSupport,
+                    NotificationServiceRoles.PlatformAdmin,
+                    NotificationServiceRoles.PolicyUnderwriter,
+                    NotificationServiceRoles.SupportAgent,
                     NotificationServiceRoles.Administrator));
 
             options.AddPolicy(NotificationServicePolicies.NotificationSend, policy =>
                 policy.RequireAuthenticatedUser().RequireRole(
+                    NotificationServiceRoles.ClaimsAdjuster,
                     NotificationServiceRoles.ClaimsOfficer,
                     NotificationServiceRoles.CustomerSupport,
+                    NotificationServiceRoles.PlatformAdmin,
+                    NotificationServiceRoles.SupportAgent,
                     NotificationServiceRoles.Administrator));
 
             options.AddPolicy(NotificationServicePolicies.NotificationAdmin, policy =>
-                policy.RequireAuthenticatedUser().RequireRole(NotificationServiceRoles.Administrator));
+                policy.RequireAuthenticatedUser().RequireRole(
+                    NotificationServiceRoles.PlatformAdmin,
+                    NotificationServiceRoles.Administrator));
         });
 
         services.AddSwaggerGen(options =>
