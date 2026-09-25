@@ -30,6 +30,15 @@ builder.Services.AddScoped<INotificationDispatcher, NotificationDispatcher>();
 
 builder.Services.AddNotificationServiceAuthentication(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -80,6 +89,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
